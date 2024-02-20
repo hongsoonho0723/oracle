@@ -1,0 +1,32 @@
+
+--테이블생성
+create table zipcode(
+  zip varchar2(20) ,
+  sido	varchar2(100),
+  si	varchar2(100),
+  dong	varchar2(200),
+  ri	varchar2(100),
+  doseo	 varchar2(100),
+  bunji	varchar2(100),
+  apt	varchar2(100),
+  address varchar2(300)
+)
+
+
+
+
+
+도스에서
+실행
+ sqlldr userid=scott/tiger control='test.ctl'
+
+
+
+
+
+
+
+
+
+
+
