@@ -67,7 +67,9 @@ SELECT EMP_NAME,JOB,DEPT_ID FROM EMP WHERE JOB ='세일즈';
 
 SELECT *FROM EMP WHERE HIREDATE ='2001-12-03';
 
-SELECT *FROM EMP WHERE to_char(HIREDATE , 'YYYY"년"-MM"월"-DD"일"') ='2001년-12월-3일';
+SELECT *FROM EMP WHERE to_char(HIREDATE , 'YYYY-MM-DD') ='2001-12-03';
+
+SELECT *FROM EMP WHERE to_char(HIREDATE , 'YYYY"년"-MM"월"-DD"일"') ='2001년-12월-03일';
 
 
 --4.부서번호(dept_id)가 200인 부서에서 근무하는 모든 사원의 이름과 담당업무,입사일,부서번호검색하세요.
@@ -78,29 +80,68 @@ SELECT EMP_NAME,SAL FROM EMP WHERE SAL BETWEEN 3000 AND 5000;
 
 --6.emp테이블에서 관리자번호(mgr_id)가 6311,6361,6351가운데 하나인 모든 사원의 사원번호,관리자번호,이름,부서번호를 출력하세요.
 
-SELECT EMP_ID,MGR_ID,EMP_NAME,DEPT_ID FROM EMP WHERE 
+SELECT EMP_ID,MGR_ID,EMP_NAME,DEPT_ID
+FROM EMP
+WHERE MGR_ID =6311 OR MGR_ID =6361 OR MGR_ID = 6351; 
 
 --7.담당업무가 사무직이거나 경리인 사원의 모든 정보를 검색하세요.
 
+SELECT *FROM EMP
+WHERE JOB='사무직' OR JOB ='경리';
+
+
 --8.emp테이블에서 급여가 3000이상인 모든 부장의 정보를 검색하세요.
+
+SELECT *FROM EMP
+WHERE SAL>=3000 AND JOB='부장';
 
 --9. emp테이블에서 담당업무가 세일즈 이거나 사무직이 아닌 모든 사원의 정보를 검색하세요.
 
+SELECT *FROM EMP
+WHERE JOB='세일즈' OR JOB !='사무직';
+
 --10. emp테이블에서 급여가 1500이상 2500이하가  아닌 모든 사원의 정보를 검색하세요.
+
+SELECT *FROM EMP 
+WHERE SAL BETWEEN 1500 AND 2500;
 
 --11.담당업무가 경리이거나 부장이면서 급여가 3000이 넘는 모든 사원의 정보를 검색하고 가장먼저 입사한 사람부터 출력하세요.
 
+SELECT *FROM EMP
+WHERE (JOB ='경리' OR JOB ='부장') AND SAL>=3000
+ORDER BY HIREDATE ASC;
+
 --12.사원의 부서번호를 기준으로 오름차순으로 정렬하되, 같은 부서 안에서는 급여가 많은 사람이 먼저 출력 되도록 하세요.
+
+SELECT *FROM EMP 
+ORDER BY DEPT_ID ASC ,SAL DESC;
 
 --13.보너스(bonus)가 null이 아니면서 입사일이 2000년 이상인 사원의 정보를 검색하세요.
 
+SELECT *FROM EMP
+WHERE BONUS IS NOT NULL AND TO_CHAR(HIREDATE,'YYYY')>=2000;
+
 --14.emp_name이 3글자이고 끝 글자가 ‘수'이며 첫글자는 ’박‘으로 시작하는 사원의 정보검색하세요.
+
+SELECT *FROM EMP
+WHERE EMP_NAME LIKE '박_수';
 
 --15. 보너스(bonus)가 null인 사원의 보너스를 0으로 변경하세요.
 
+
+SELECT NVL(BONUS,0) FROM EMP;
+
 --16. 직업이 ‘직’끝나면서 급여가 2000~3000사이 인 사원의 이름을 ‘장동건’, 급여를 3500으로 변경하세요.
 
+UPDATE EMP
+SET EMP_NAME = '장동건',SAL=3500
+WHERE JOB LIKE '%직' AND SAL BETWEEN 2000 AND 3000;
+
 --17. emp_name에 ‘철’자가 들어가면서 직급이 부장인 사원의 정보를 삭제하세요.
+
+DELETE EMP 
+WHERE EMP_NAME ='%철%' AND JOB='부장';
+
 
 --18.테이블을 삭제하세요. 
                                                            
@@ -108,5 +149,5 @@ SELECT EMP_ID,MGR_ID,EMP_NAME,DEPT_ID FROM EMP WHERE
 DROP TABLE EMP;
 
 
-
+COMMIT
 
