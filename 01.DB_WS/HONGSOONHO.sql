@@ -1,5 +1,10 @@
 ----------------------------------------------
 --1번 문제
+drop table room;
+drop table student;
+drop table teacher;
+drop table subject;
+drop table sugagn;
 
 CREATE TABLE SUBJECT(
     SUBJECT_CODE VARCHAR2(5) PRIMARY KEY,
@@ -67,7 +72,7 @@ insert into room values(904,32);
 insert into room values(905,30);
 insert into room values(906,35);
 
-select *from subject;
+select *from room;
 
 INSERT INTO TEACHER VALUES(1,'홍길동','700918-1622011','031-295-1234','성남시 중원구 신흥동','kkk@jok.or.kr','j1001');
 INSERT INTO TEACHER VALUES(2,'유관순','710419-2018916','02-345-2345','서울 강남구 개포동','kkk@jok.or.kr','j1002');
