@@ -551,3 +551,36 @@ SELECT *FROM COPY_EMP WHERE JOB='TEACHER';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
