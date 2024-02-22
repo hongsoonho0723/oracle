@@ -97,6 +97,77 @@ SELECT replace(PHONE,'-','') AS PHONE_SHORT FROM USERS;
 
 
 
+SELECT *FROM ACCOUNT;
+
+15. 계좌 ( account ) 테이블에서 고객번호 ( user_seq ) 가 222 인 건 수를 조회한다.
+
+SELECT COUNT(user_seq )
+FROM ACCOUNT
+WHERE USER_SEQ =222;
+
+
+16. 계좌 ( account ) 테이블의 전체 잔고 ( balance ) 의 합을 조회하고 balance_sum 으로 표시한다
+
+SELECT SUM(BALANCE) AS BALANCE_SUM
+FROM ACCOUNT;
+
+17. 계좌 ( account ) 테이블의 잔고 중 최소갑과 최대값을 조회하고 각각 balance_min, 
+balance_max 로 표시한다.
+
+SELECT MIN(BALANCE) AS balance_min, MAX(BALANCE) AS balance_max FROM ACCOUNT;
+
+18. 계좌 ( account ) 테이블에서 고객번호와 고객번호 ( user_seq ) 별 계좌 건수를 조회하고
+user_account_cnt 로 표시한다. 단, 고객번호 ( user_seq ) 가 없는 건은 제외한다.
+
+
+SELECT USER_SEQ,COUNT(*) 
+FROM ACCOUNT 
+GROUP BY (USER_SEQ)
+HAVING USER_SEQ IS NOT NULL;
+
+
+19. 계좌 ( account ) 테이블에서 고객번호와 고객번호 ( user_seq ) 별 잔고의 합을 조회하고
+user_balance_sum 로 표시한다. 단, 고객번호 ( user_seq ) 가 없는 건은 제외한다.
+
+SELECT USER_SEQ,COUNT(*) ,SUM(BALANCE) AS user_balance_sum
+FROM ACCOUNT 
+GROUP BY (USER_SEQ)
+HAVING USER_SEQ IS NOT NULL;
+
+20. 위 19번의 결과 중 user_balance_sum 이 10000 이하인 건만을 조회한다.
+
+SELECT USER_SEQ,COUNT(*) ,SUM(BALANCE) AS user_balance_sum
+FROM ACCOUNT 
+GROUP BY (USER_SEQ)
+HAVING USER_SEQ IS NOT NULL AND SUM(BALANCE)<10000;
+
+COMMIT;
+
+
+SELECT *FROM ACCOUNT;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 DESC USERS;
