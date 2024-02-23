@@ -101,10 +101,15 @@ SELECT *FROM ACCOUNT;
 
 15. 계좌 ( account ) 테이블에서 고객번호 ( user_seq ) 가 222 인 건 수를 조회한다.
 
-SELECT COUNT(user_seq )
+SELECT  COUNT(user_seq )
 FROM ACCOUNT
 WHERE USER_SEQ =222;
 
+
+SELECT USER_SEQ,  COUNT(user_seq )
+FROM ACCOUNT
+GROUP BY USER_SEQ
+HAVING USER_SEQ =222;
 
 16. 계좌 ( account ) 테이블의 전체 잔고 ( balance ) 의 합을 조회하고 balance_sum 으로 표시한다
 
@@ -118,6 +123,12 @@ SELECT MIN(BALANCE) AS balance_min, MAX(BALANCE) AS balance_max FROM ACCOUNT;
 
 18. 계좌 ( account ) 테이블에서 고객번호와 고객번호 ( user_seq ) 별 계좌 건수를 조회하고
 user_account_cnt 로 표시한다. 단, 고객번호 ( user_seq ) 가 없는 건은 제외한다.
+
+SELECT USER_SEQ,COUNT(USER_SEQ) 
+FROM ACCOUNT 
+WHERE USER_SEQ IS NOT NULL
+GROUP BY (USER_SEQ);
+
 
 
 SELECT USER_SEQ,COUNT(*) 
@@ -139,7 +150,7 @@ HAVING USER_SEQ IS NOT NULL;
 SELECT USER_SEQ,COUNT(*) ,SUM(BALANCE) AS user_balance_sum
 FROM ACCOUNT 
 GROUP BY (USER_SEQ)
-HAVING USER_SEQ IS NOT NULL AND SUM(BALANCE)<10000;
+HAVING USER_SEQ IS NOT NULL AND SUM(BALANCE)<=10000;
 
 COMMIT;
 
