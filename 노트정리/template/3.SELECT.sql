@@ -18,7 +18,7 @@
 */
 
 --EX) SCOTT계정 접속 
-
+desc emp;
 SELECT * FROM EMP; --사원테이블
 SELECT * FROM DEPT;--부서정보테이블
 
