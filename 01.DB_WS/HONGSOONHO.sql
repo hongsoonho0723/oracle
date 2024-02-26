@@ -169,27 +169,32 @@ select *from student;
 SELECT* FROM STUDENT
 where SUBSTR(STUDENT_JUMIN,(select distinct instr(STUDENT_JUMIN,'-') FROM STUDENT)+1,1) = 2;
 
+select*from student where student_jumin like '%-2%'; 
+select*from student where student_jumin like '______-2______';
 
 2.생년월일이 1973년인 수강생 정보를 검색 (substr이용)
 
 SELECT *FROM STUDENT 
 WHERE SUBSTR(STUDENT_JUMIN,1,2) =73;
 
+select *from student where student_jumin like '73%';
+
+select *from student where '19' || substr(student_jumin,1,2) ||'년'='1973년';
+
 3.성이 홍이 아닌 강사의 정보검색
 
 SELECT *FROM TEACHER
 WHERE SUBSTR (TEACHER_NAME,1,1) !='홍';
 
-
-
-
-
-
+select *from teacher where teacher_name not like '홍%';
 
 4.강남구에 거주하는 강사의 정보 검색
 
 SELECT *FROM TEACHER
 WHERE SUBSTR(TEACHER_ADDR,4,3) ='강남구' OR SUBSTR(TEACHER_ADDR,5,3) ='강남구' ;
+
+select *from teacher 
+where teacher_addr like '%강남구%';
 
 5.JAVA를 강의하는 강사 정보 검색(서브쿼리 이용)
 
@@ -201,9 +206,13 @@ SELECT *FROM TEACHER
 WHERE TEACHER_ADDR IS NOT NULL;
 
 7. SQL수업을 수강하고 있는 학생의 정보를 검색하는 뷰 작성
+
 SELECT *FROM STUDENT WHERE STUDENT_NUMBER=
 (SELECT STUDENT_NUMBER FROM SUGAGN WHERE SUBJECT_CODE =
-(SELECT SUBJECT_CODE FROM SUBJECT WHERE SUBJECT = 'sql'));
+(SELECT SUBJECT_CODE FROM SUBJECT WHERE upper(SUBJECT) = upper('sql')));
+
+
+
 
 SELECT STUDENT_NUMBER FROM SUGAGN WHERE SUBJECT_CODE = (SELECT SUBJECT_CODE FROM SUBJECT WHERE SUBJECT = 'sql');
 
@@ -212,13 +221,18 @@ SELECT SUBJECT_CODE FROM SUBJECT WHERE SUBJECT = 'sql';
 select *from student;
 select *from TEACHER;
 SELECT *FROM SUBJECT;
-
+select *from room;
 8.
 
 9.아래 그림을 보고 만드세요
 
-SELECT STUDENT_NAME,STUDENT_JUMIN 
-FROM STUDENT JOIN 
+SELECT STUDENT_NAME,STUDENT_JUMIN,
+case
+when substr(student_jumin,8,1) = 1 then '남자'
+when substr(student_jumin,8,1) = 2 then '여자'
+end as 성별
+from student;
+
 
 
 10. TEAACHER 강사이름을 기준으로 올리차순으로 정렬하여 정열된 순서대로 ROWNUM이 출력되도록 하세요
@@ -227,6 +241,9 @@ SELECT ROWNUM,TEACHER_NAME,TEACHER_PHONE,TEACHER_ADDR
 FROM (SELECT *FROM TEACHER ORDER BY TEACHER_NAME ASC);
 
 
+
+SELECT*from (select ROWNUM no,TEACHER_NAME,TEACHER_PHONE,TEACHER_ADDR
+FROM (SELECT *FROM TEACHER ORDER BY TEACHER_NAME ASC)) where  no >3;
 
 
 
