@@ -81,4 +81,8 @@ LOAD DATA
 (zip,sido,si,dong,ri,doseo,bunji,apt,address)   
 
 
+
+
+
+insert into emp(empno,ename,job,sal,hiredate) values(9000,'hee','teacher',200,sysdate);
 commit;
